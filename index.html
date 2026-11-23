@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="セドリ事業計画 by Urushihara">
+<meta name="theme-color" content="#0f4c5c">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<title>セドリ事業計画 by Urushihara v1.4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* 説明資料として上から読む一本道。数字の部分だけ、その場で動かせる */
+:root{
+ --paper:#f5f6f3;--card:#ffffff;--ink:#1b2328;--sub:#5d6a70;--line:#dfe3df;
+ --teal:#0f4c5c;--teal-soft:#e3eef0;--amber:#c8741f;--amber-soft:#fbf0e3;
+ --good:#1f7a4a;--bad:#b23a2e;
+ --display:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;
+ --body:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+ color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --paper:#12181b;--card:#1a2226;--ink:#e6ebec;--sub:#9fadb2;--line:#2c373c;
+ --teal:#5fb3c4;--teal-soft:#1d3138;--amber:#e39a4f;--amber-soft:#33281c;--good:#5cc28a;--bad:#ec7a6c;color-scheme:dark;}}
+:root[data-theme="dark"]{
+ --paper:#12181b;--card:#1a2226;--ink:#e6ebec;--sub:#9fadb2;--line:#2c373c;
+ --teal:#5fb3c4;--teal-soft:#1d3138;--amber:#e39a4f;--amber-soft:#33281c;--good:#5cc28a;--bad:#ec7a6c;color-scheme:dark;}
+*{box-sizing:border-box;}
+[hidden]{display:none !important;}
+html,body{margin:0;}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px 64px;}
+header.top{padding:40px 0 20px;display:grid;gap:10px;}
+.app{font-family:var(--display);font-weight:900;font-size:15px;color:var(--teal);}
+.app span{font-weight:700;color:var(--sub);}
+.app em{font-style:normal;font-size:12px;color:#fff;background:var(--teal);border-radius:999px;padding:1px 8px;margin-left:4px;vertical-align:2px;}
+.to{font-size:14px;color:var(--sub);}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(28px,6vw,40px);line-height:1.3;margin:0;text-wrap:balance;}
+.lead{font-size:17px;max-width:38em;margin:0;}
+.from{font-size:14px;color:var(--sub);}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line);margin:0 -18px;padding:8px 18px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+nav.toc a{flex:none;font-size:13px;color:var(--teal);text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card);}
+nav.toc a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+section{padding-top:36px;scroll-margin-top:52px;}
+.no{font-family:var(--display);color:var(--amber);font-weight:900;font-size:14px;letter-spacing:.08em;}
+h2{font-family:var(--display);font-weight:900;font-size:24px;line-height:1.4;margin:2px 0 12px;text-wrap:balance;}
+h3{font-size:16px;margin:18px 0 6px;}
+p{margin:0 0 12px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;}
+.stack{display:grid;gap:12px;}
+.steps{display:grid;gap:12px;}
+.step{display:grid;grid-template-columns:56px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;}
+.step .n{font-family:var(--display);font-weight:900;font-size:13px;color:#fff;background:var(--teal);border-radius:12px;display:grid;place-items:center;text-align:center;line-height:1.2;height:56px;}
+.step.now .n{background:var(--amber);}
+.step h3{margin:0 0 4px;}
+.step p{margin:0;font-size:15px;}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;background:var(--amber-soft);color:var(--amber);font-weight:700;margin-left:6px;vertical-align:2px;}
+ul.plain{margin:0;padding-left:1.2em;}
+ul.plain li{margin:4px 0;}
+.flow{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.flow div{background:var(--teal-soft);border-radius:12px;padding:12px 14px;font-size:15px;}
+.flow b{display:block;color:var(--teal);font-size:13px;}
+@media (max-width:520px){.flow{grid-template-columns:1fr;}}
+.inputs{display:grid;gap:4px;}
+.in{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);}
+.in:last-child{border-bottom:none;}
+.in label{font-size:15px;}
+.in label small{display:block;color:var(--sub);font-size:12px;}
+.in input[type=number],.in select{font:inherit;font-size:16px;width:130px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);text-align:right;font-variant-numeric:tabular-nums;}
+.in select{text-align:left;width:auto;}
+.range{display:grid;gap:4px;padding:10px 0;}
+.range .lab{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;}
+.range .lab b{font-family:var(--display);font-size:22px;color:var(--teal);font-variant-numeric:tabular-nums;}
+input[type=range]{width:100%;accent-color:var(--teal);}
+table{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums;}
+td,th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:right;}
+td:first-child,th:first-child{text-align:left;}
+th{font-size:13px;color:var(--sub);font-weight:500;}
+tr.total td{font-weight:700;border-top:2px solid var(--ink);border-bottom:none;}
+.neg{color:var(--bad);}.pos{color:var(--good);}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;}
+.tile small{display:block;font-size:12px;color:var(--sub);}
+.tile b{font-family:var(--display);font-size:24px;font-variant-numeric:tabular-nums;}
+.tile.key{border-color:var(--amber);background:var(--amber-soft);}
+.meter{height:12px;border-radius:999px;background:var(--line);overflow:hidden;margin:8px 0 4px;}
+.meter i{display:block;height:100%;background:var(--amber);border-radius:999px;transition:width .2s;}
+@media (prefers-reduced-motion:reduce){.meter i{transition:none;}}
+.note{font-size:13px;color:var(--sub);}
+.callout{border-left:4px solid var(--amber);background:var(--amber-soft);border-radius:8px;padding:10px 14px;font-size:15px;}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.seg button{font:inherit;font-size:14px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;}
+.seg button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff;}
+.chart{width:100%;overflow-x:auto;}
+.chart svg{display:block;width:100%;min-width:320px;height:auto;}
+.check{display:grid;gap:8px;}
+.check div{display:grid;grid-template-columns:28px 1fr;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:15px;}
+.check span{font-family:var(--display);font-weight:900;color:var(--amber);}
+footer{margin-top:40px;font-size:13px;color:var(--sub);border-top:1px solid var(--line);padding-top:14px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="app">セドリ事業計画 <span>by Urushihara</span> <em>v1.4</em></div>
+ <div class="to">株式会社タルタルーガ 御中</div>
+ <h1>eBayで日本の中古品を海外に売る、共同事業のご提案</h1>
+ <p class="lead">ゲームソフトやポケモンカードのような軽い中古品を、eBayで海外のお客様に販売します。最初はお金の負担なく始めていただき、数字で手応えを確かめながら、タルタルーガ様の新しい収入の柱に育てていく計画です。</p>
+ <div class="from">ご提案：漆原義隆　／　2026年11月　／　セドリ事業計画 v1.4</div>
+</header>
+
+<nav class="toc" aria-label="目次">
+ <a href="#s1">1 事業の中身</a><a href="#s2">2 3つの段階</a><a href="#s3">3 売上の予想</a><a href="#s4">4 受け取り額</a><a href="#s5">5 見通し</a><a href="#s7">6 決めること</a>
+</nav>
+
+
+<section id="s1">
+ <div class="no">01</div>
+ <h2>どんな事業か</h2>
+ <p>日本の中古品は、海外では手に入りにくく、品質の良さでも人気があります。eBayに出品すれば、アメリカをはじめ世界中のお客様に届きます。</p>
+ <div class="flow">
+  <div><b>扱う商品</b>ゲームソフト・ゲーム機・ポケモンカードなど。軽くて送料が安い物を中心にします。</div>
+  <div><b>仕入れ</b>国内のリサイクル店・フリマ・オークションから、漆原が選んで仕入れます。</div>
+  <div><b>販売</b>eBayに英語で出品し、売れたら海外へ発送します。</div>
+  <div><b>判断の基準</b>専用のアプリで、手数料・送料・関税・為替をすべて引いた利益を計算してから仕入れます。</div>
+ </div>
+</section>
+
+<section id="s2">
+ <div class="no">02</div>
+ <h2>3つの段階で、無理なく進めます</h2>
+ <div class="steps">
+  <div class="step now"><div class="n">段階<br>1</div><div>
+   <h3>作業のお手伝い<span class="tag">最初はここから</span></h3>
+   <p>撮影・出品・梱包・発送などの作業をお願いします。仕入れ代金と送料などの経費は、すべて漆原が負担します。タルタルーガ様が立て替えた経費は実費でお返しします。この段階で、作業量と売れ行きを一緒に確かめます。</p>
+  </div></div>
+  <div class="step"><div class="n">段階<br>2</div><div>
+   <h3>商品をお預けして販売</h3>
+   <p>「これなら儲かる」とご判断いただいた時点で始めます。漆原が仕入れた商品をお預けし、タルタルーガ様が販売して、利益を取り決めた割合で分けます。</p>
+  </div></div>
+  <div class="step"><div class="n">段階<br>3</div><div>
+   <h3>タルタルーガ様の事業として</h3>
+   <p>将来は、タルタルーガ様が商品を持って販売する形を目指します。アプリ・サーバー・仕入れのノウハウの利用料として、売上に応じたシステム利用料をお支払いいただきます。</p>
+  </div></div>
+ </div>
+</section>
+
+<section id="s3">
+ <div class="no">03</div>
+ <h2>どれだけ売れるかの予想</h2>
+ <p>出品できる数の増え方と売れる速さで、3つの場合を予想しました。1か月に扱える件数は600件を上限にしています。</p>
+ <div class="card">
+  <div class="inputs">
+   <div class="in"><label for="f-price">平均の売値<small>円/件（90ドル×150円）</small></label><input type="number" id="f-price" value="13500" step="500" min="0"></div>
+   <div class="in"><label for="f-cap">月に扱える上限<small>件</small></label><input type="number" id="f-cap" value="600" step="50" min="0"></div>
+  </div>
+ </div>
+ <div class="card chart" style="margin-top:12px"><table id="f-table"></table></div>
+ <p class="note" style="margin-top:8px">慎重：出品数が毎月＋10品、売れるまで45日。普通：毎月＋20品、30日。好調：毎月＋30品、20日。どれも始めは10品から。タルタルーガ様の受け取りは、段階2で下の「1件の平均利益」と「取り分」で計算しています。</p>
+</section>
+
+<section id="s4">
+ <div class="no">04</div>
+ <h2>これだけ売れば、いくら受け取れるか</h2>
+ <p>月の売上か販売件数を入れると、タルタルーガ様の受け取り額を計算します。段階も切り替えられます。</p>
+ <div class="seg" role="group" aria-label="段階">
+  <button type="button" data-st="1" aria-pressed="false">段階1</button>
+  <button type="button" data-st="2" aria-pressed="true">段階2</button>
+  <button type="button" data-st="3" aria-pressed="false">段階3</button>
+ </div>
+ <div class="seg" role="group" aria-label="入れ方" id="t-mode">
+  <button type="button" data-m="sales" aria-pressed="true">売上で入れる</button>
+  <button type="button" data-m="n" aria-pressed="false">件数で入れる</button>
+ </div>
+ <div class="card">
+  <div class="range" id="r-sales"><div class="lab"><label for="t-sales">月の売上</label><b><span id="t-sales-v">135</span>万円</b></div><input type="range" id="t-sales" min="0" max="1000" step="5" value="135"></div>
+  <div class="range" id="r-n" hidden><div class="lab"><label for="t-n">月の販売件数</label><b><span id="t-n-v">100</span>件</b></div><input type="range" id="t-n" min="0" max="800" step="10" value="100"></div>
+  <div class="inputs">
+   <div class="in"><label for="t-price">平均の売値<small>円/件</small></label><input type="number" id="t-price" value="13500" step="500" min="1"></div>
+   <div class="in" id="row-p"><label for="t-profit">1件の平均利益<small>円（手数料・送料・関税を引いた後）</small></label><input type="number" id="t-profit" value="2450" step="50" min="0"></div>
+   <div class="in" id="row-share"><label for="t-share">タルタルーガ様の取り分<small>委託品の利益の%（話し合いで決める）</small></label><input type="number" id="t-share" value="50" min="0" max="100" step="1"></div>
+   <div class="in" id="row-rate" hidden><label for="t-rate">システム利用料<small>売上の%（話し合いで決める）</small></label><input type="number" id="t-rate" value="3" min="0" max="100" step="0.5"></div>
+   <div class="in" id="row-min" hidden><label for="t-min">システム利用料の最低月額<small>円/月</small></label><input type="number" id="t-min" value="20000" min="0" step="1000"></div>
+  </div>
+ </div>
+ <div class="card" style="margin-top:12px"><table id="t-table"></table></div>
+ <div class="tiles" style="margin-top:12px;grid-template-columns:1fr">
+  <div class="tile"><small>必要な作業時間（1件30分）</small><b id="t-hours">0時間</b></div>
+ </div>
+ <p class="note" id="t-msg" style="margin-top:10px"></p>
+</section>
+
+<section id="s5">
+ <div class="no">05</div>
+ <h2>受け取り額の見通し</h2>
+ <p>eBayでは、新しいアカウントは出品できる数が少なく、実績を積むと少しずつ増えます。そのため、売上は一気には増えません。下のグラフは、段階2で上の条件のまま進めた場合の目安です。</p>
+ <div class="card">
+  <div class="inputs">
+   <div class="in"><label for="g-start">始めの出品数<small>品</small></label><input type="number" id="g-start" value="10" min="1" step="5"></div>
+   <div class="in"><label for="g-inc">出品数の増え方<small>毎月＋何品</small></label><input type="number" id="g-inc" value="20" min="0" step="5"></div>
+   <div class="in"><label for="g-days">売れるまでの平均日数</label><input type="number" id="g-days" value="30" min="5" step="5"></div>
+  </div>
+  <div class="chart" id="g-chart" style="margin-top:10px"></div>
+  <p class="callout" id="g-msg" style="margin:10px 0 0"></p>
+ </div>
+</section>
+
+<section id="s7">
+ <div class="no">06</div>
+ <h2>これから一緒に決めること</h2>
+ <div class="check">
+  <div><span>1</span>お願いする作業の範囲（撮影・出品・梱包・発送・お問い合わせ対応のどこまでか）</div>
+  <div><span>2</span>どのeBayアカウントで販売するか（出品できる数・評価・入金先が変わります）</div>
+  <div><span>3</span>古物商許可の扱い（中古品の売買には許可が必要です。契約の形に合わせて警察署で確認します）</div>
+  <div><span>4</span>実費の精算の方法と時期</div>
+  <div><span>5</span>商品の紛失・破損・返品のときの費用の分け方</div>
+  <div><span>6</span>段階2に進む目安、委託品の利益の分け方、段階3のシステム利用料</div>
+ </div>
+ <p style="margin-top:14px">契約の内容は、税理士などの専門家にも確認したうえで決めたいと考えています。</p>
+</section>
+
+<footer>
+ このページの数字は、2026年11月時点の手数料・関税・送料をもとにした目安です。為替や売れ行き、各社の料金の変更で変わります。実際に始めてからは、実績の数字に置き換えて見直していきます。
+</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat($(id).value);return isFinite(v)?v:0;};
+var man=function(n){return (n<0?"−":"")+(Math.round(Math.abs(n)/1000)/10).toLocaleString("ja-JP")+"万円";};
+var stage=2,mode="sales";
+function receiveFor(n,sales){ // [タルタルーガ様の受け取り, システム利用料]
+ var p=num("t-profit");
+ if(stage===1)return [0,0];
+ if(stage===2)return [n*p*Math.min(100,Math.max(0,num("t-share")))/100,0];
+ var fee=n>0?Math.max(sales*num("t-rate")/100,num("t-min")):num("t-min");
+ return [n*p-fee,fee];
+}
+function receive(){
+ var price=Math.max(1,num("t-price")),n,sales;
+ if(mode==="sales"){sales=num("t-sales")*1e4;n=sales/price;}else{n=num("t-n");sales=n*price;}
+ $("t-sales-v").textContent=Math.round(sales/1e4);$("t-n-v").textContent=Math.round(n);
+ $("r-sales").hidden=mode!=="sales";$("r-n").hidden=mode!=="n";
+ var r=receiveFor(n,sales),get=r[0];
+ var h="<tr><th></th><th>月あたり</th><th>年あたり</th></tr>"+
+  "<tr><td>売上</td><td>"+man(sales)+"</td><td>"+man(sales*12)+"</td></tr>"+
+  "<tr><td>販売件数</td><td>"+Math.round(n).toLocaleString("ja-JP")+"件</td><td>"+Math.round(n*12).toLocaleString("ja-JP")+"件</td></tr>";
+ if(stage===3)h+='<tr><td>システム利用料</td><td class="neg">−'+man(r[1])+'</td><td class="neg">−'+man(r[1]*12)+"</td></tr>";
+ h+='<tr class="total"><td>タルタルーガ様の受け取り</td><td class="pos">'+man(get)+'</td><td class="pos">'+man(get*12)+"</td></tr>";
+ $("t-table").innerHTML=h;
+ $("t-hours").textContent=Math.round(n*0.5)+"時間";
+ var msg;
+ if(stage===1)msg="段階1は、作業のお手伝いと売れ行きの確認の期間です。立て替えた経費は実費でお返ししますが、受け取りはまだありません。";
+ else if(stage===2)msg="段階2では、漆原の商品を販売し、利益を取り決めた割合で分けます。割合はご相談のうえ決めます。";
+ else msg="段階3では、タルタルーガ様の商品として販売し、利益はタルタルーガ様のものです。アプリ・サーバー・ノウハウの利用料として、売上の"+num("t-rate")+"%（最低月"+man(num("t-min"))+"）をお支払いいただきます。在庫を買うお金はタルタルーガ様の負担です。";
+ $("t-msg").textContent=msg;
+ $("row-p").hidden=stage===1;$("row-share").hidden=stage!==2;$("row-rate").hidden=stage!==3;$("row-min").hidden=stage!==3;
+ growth();forecast();
+}
+function forecast(){
+ var price=num("f-price"),cap=num("f-cap"),r=num("t-profit")*Math.min(100,Math.max(0,num("t-share")))/100;
+ var sc=[["慎重",10,10,45],["普通",10,20,30],["好調",10,30,20]];
+ var res=sc.map(function(c){var m6=0,m12=0,m24=0,y1=0,n1=0;
+  for(var m=1;m<=24;m++){var n=Math.min(cap,(c[1]+c[2]*(m-1))*Math.min(1,30/c[3]));var sales=n*price;if(m<=12){y1+=sales;n1+=n;}if(m===6)m6=sales;if(m===12)m12=sales;if(m===24)m24=sales;}
+  return {name:c[0],m6:m6,m12:m12,m24:m24,y1:y1,n1:n1};});
+ var row=function(label,f){return "<tr><td>"+label+"</td>"+res.map(function(x){return "<td>"+f(x)+"</td>";}).join("")+"</tr>";};
+ $("f-table").innerHTML="<tr><th></th>"+res.map(function(x){return "<th>"+x.name+"</th>";}).join("")+"</tr>"+
+  row("6か月目の月売上",function(x){return man(x.m6);})+row("12か月目の月売上",function(x){return man(x.m12);})+row("24か月目の月売上",function(x){return man(x.m24);})+
+  row("1年目の売上合計",function(x){return man(x.y1);})+row("1年目の販売件数",function(x){return Math.round(x.n1).toLocaleString("ja-JP")+"件";})+
+  '<tr class="total"><td>タルタルーガ様（1年目）</td>'+res.map(function(x){return '<td class="pos">'+man(x.n1*r)+"</td>";}).join("")+"</tr>";
+}
+/* 5. 見通し（段階2で計算） */
+function growth(){
+ var start=num("g-start"),inc=num("g-inc"),days=Math.max(5,num("g-days")),r=num("t-profit")*Math.min(100,Math.max(0,num("t-share")))/100;
+ var M=24,pts=[];
+ for(var m=1;m<=M;m++){var listings=start+inc*(m-1);var sales=listings*Math.min(1,30/days);var g=sales*r;pts.push(g);}
+ var W=640,H=260,L=56,R=12,T=14,B=30;
+ var mx=Math.max(Math.max.apply(null,pts)*1.1,1);
+ var X=function(i){return L+(W-L-R)*(i-1)/(M-1);},Y=function(v){return T+(H-T-B)*(1-v/mx);};
+ var css=getComputedStyle(document.documentElement);
+ var c=function(n){return css.getPropertyValue(n).trim();};
+ var svg='<svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="毎月の受け取り額の見通し">';
+ var step=mx>2e6?5e5:mx>1e6?2e5:mx>4e5?1e5:5e4;
+ for(var v=0;v<=mx;v+=step){svg+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="'+c("--line")+'"/><text x="'+(L-6)+'" y="'+(Y(v)+4)+'" font-size="11" text-anchor="end" fill="'+c("--sub")+'">'+(v/1e4)+'万</text>';}
+ [1,6,12,18,24].forEach(function(i){svg+='<text x="'+X(i)+'" y="'+(H-8)+'" font-size="11" text-anchor="middle" fill="'+c("--sub")+'">'+i+'か月目</text>';});
+ var area="M"+X(1)+","+Y(0)+" "+pts.map(function(g,i){return "L"+X(i+1)+","+Y(g);}).join(" ")+" L"+X(M)+","+Y(0)+"Z";
+ svg+='<path d="'+area+'" fill="'+c("--teal")+'" opacity=".12"/>';
+ svg+='<polyline fill="none" stroke="'+c("--teal")+'" stroke-width="2.5" points="'+pts.map(function(g,i){return X(i+1)+","+Y(g);}).join(" ")+'"/>';
+ var last=pts[M-1];svg+='<circle cx="'+X(M)+'" cy="'+Y(last)+'" r="4" fill="'+c("--teal")+'"/>';
+ svg+="</svg>";
+ $("g-chart").innerHTML=svg;
+ $("g-msg").textContent="この条件では、タルタルーガ様の受け取りは12か月目で月"+man(pts[11])+"、24か月目で月"+man(pts[23])+"の見込みです。最初の数か月は、売れ行きを確かめる期間と考えています。";
+}
+["g-start","g-inc","g-days"].forEach(function(id){$(id).addEventListener("input",growth);});
+["g-start","g-inc","g-days"].forEach(function(id){$(id).addEventListener("input",growth);});
+["f-price","f-cap"].forEach(function(id){$(id).addEventListener("input",forecast);});
+["t-n","t-sales","t-price","t-profit","t-share","t-rate","t-min"].forEach(function(id){$(id).addEventListener("input",receive);});
+document.querySelectorAll(".seg button[data-st]").forEach(function(b){b.addEventListener("click",function(){
+ stage=+b.dataset.st;document.querySelectorAll(".seg button[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});receive();});});
+document.querySelectorAll("#t-mode button").forEach(function(b){b.addEventListener("click",function(){
+ mode=b.dataset.m;document.querySelectorAll("#t-mode button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});receive();});});
+try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",growth);}catch(e){}
+new MutationObserver(growth).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+receive();
+})();
+</script>
+</body>
+</html>
